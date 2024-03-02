@@ -21,6 +21,7 @@ header{
     grid-template-columns: repeat(5, auto);
 
     gap: 10px;
+    margin-top: 25px;
 }
 
 .letter{
@@ -61,9 +62,9 @@ header{
     --primary-color: rgb(31, 30, 29);   
     --secoundary-color: rgb(249, 247, 243);  
     --color : rgb(249, 247, 243);      
-    --correct-color: (#538D4E);
-    --wrong-color: (#3A3A3C);
-    --misplaced-color: (#B59F3B); 
+    --correct-color: rgb(83, 141, 78);
+    --wrong-color: rgb(58, 58, 60);
+    --misplaced-color: rgb(181, 159, 59); 
     
 
 }
@@ -71,7 +72,7 @@ header{
     --primary-color: rgb(249, 247, 243);   
     --secoundary-color: rgb(31, 30, 29); 
     --color : rgb(31, 30, 29);       
-    --correct-color: (#538D4E);
-    --wrong-color: (#ed796f);
-    --misplaced-color: (#daeb44);
+    --correct-color: rgb(83, 141, 78);
+    --wrong-color: rgb(237, 121, 111);
+    --misplaced-color: rgb(218, 235, 68);
 }

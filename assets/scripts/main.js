@@ -1,6 +1,3 @@
-const word = `https://it3049c-hangman.fly.dev/api/word`;
-
-console.log(word);  
 
 // add box to grid
 function addBoxtoGrid(row,col){
@@ -34,14 +31,12 @@ function isLetter(letter) {
 function addLetterToBox(row, col, letter){
     const cell = document.getElementById(`${row}-${col}`);
     cell.innerText = letter;
-    console.log(cell);
 }
 
 
 const gameConfig = {
     rows: 6,
     cols: 5,
-    
 };
 
 // Game State 
@@ -49,77 +44,109 @@ const gameState = {
     currentAttempt: 0,
     currentPosition: 0,
     currentGuess: '',
+    currentWord: '',
 };
+
+async function getWord() {
+    const response = await fetch('https://it3049c-hangman.fly.dev/api/word');
+    const randomwords = await response.json();
+    const word = randomwords.word;
+    console.log(word);
+    return word;
+}
 
 
 async function iswordValid(word) {
-    const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`).
-    then((response) => response.json());
-    console.log(Array.isArray(response) && response.length > 0);
-    return Array.isArray(response) && response.length > 0;
-    console.log(response);
+    const confirming = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`).
+    then((confirming) => confirming.json());
+    valid = Array.isArray(confirming) && confirming.length > 0;
+    console.log(valid);
+    return valid;
 }
 
 function updateAttemptGrid(){
-    const result = checkWordpostions(gameState.currentWord, gameConfig.word);    
-    result.forEach((result, index) => {
-        const cell = document.getElementById(`${gameState.currentAttempt}-{index}`);
-        cell.classList.add(result);
-    });
+    gameState.currentAttempt = 0;
+    gameState.currentPosition = 0;
+    gameState.currentGuess = '';
+    gameState.currentWord = '';
+
+    // Clear the grid
+    for (let row = 0; row < gameConfig.rows; row++) {
+        for (let col = 0; col < gameConfig.cols; col++) {
+            const cell = document.getElementById(`${row}-${col}`);
+            cell.innerText = '';
+            cell.classList.remove('correct', 'misplaced', 'wrong');
+        }
+    }
     
 }
 
 
+
+
+
+//
 // validate user entry
 document.addEventListener('keydown', async (event) => {
-   
     if (event.key === 'Enter') {
-       
-        if (gameState.currentAttempt === gameConfig.cols) {
-            console.log('You have reached the maximum number of attempts');
+        if (gameState.currentAttempt === gameConfig.rows) {
+            console.log(`Try again! You have used all your attempts!`);
+            updateAttemptGrid();
             return;
         }
 
-        //check guessed 5 letters
-        if (gameState.currentPosition !== gameConfig.cols - 1) {
-            console.log('You guessed less than 5!');
+        if (gameState.currentGuess.length !== gameConfig.cols) {
+            console.log('Guess a 5-letter word!');
+            return;
         }
 
-        
-        //check is the word valid
-        if (! await (iswordValid(gameState.currentAttempt))) {
-            console.log('You got the correct word');
+        if (!gameState.currentWord) {
+            gameState.currentWord = await getWord();
+            console.log('New Word:', gameState.currentWord);
+        }
 
+        if (await iswordValid(gameState.currentGuess)) {
+            console.log('Valid word!');
+
+            const feedback = checkWordPositions(gameState.currentGuess, gameState.currentWord);
+
+            feedback.forEach((result, index) => {
+                const cell = document.getElementById(`${gameState.currentAttempt}-${index}`);
+                cell.classList.add(result);
+            });
+
+            const correctLetters = feedback.filter(result => result === 'correct').length;
+
+            if (correctLetters === gameConfig.cols) {
+                console.log('You guessed the word!');
+                alert(`You guessed the word! The word was ${gameState.currentWord}`);
+                updateAttemptGrid();
+                return;
+            } else {
+                console.log('Try again!');
+                
+            }
+           
         } else {
-            console.log('Try again!');
-            
+            console.log('Guess a valid word!');
         }
 
-        gameState.currentAttempt++; 
-        gameState.currentPosition = 0;
+        gameState.currentAttempt++;
         gameState.currentGuess = '';
-    
+        gameState.currentPosition = 0;
     }
 
-    
     if (event.key === 'Backspace') {
-        addLetterToBox( gameState.currentAttempt ,gameState.currentPosition,''); 
-        if (gameState.currentPosition >= 0) {
-            gameState.currentPosition;
+        if (gameState.currentPosition > 0) {
+            gameState.currentPosition--;
+            gameState.currentGuess = gameState.currentGuess.slice(0, -1);
+            addLetterToBox(gameState.currentAttempt, gameState.currentPosition, '');
         }
-    }   
-    
-    if (isLetter(event.key)) {
-        addLetterToBox( gameState.currentAttempt ,gameState.currentPosition,event.key); 
-            console.log(gameState.currentPosition);
-            gameState.currentGuess += event.key;
-
-        if (gameState.currentPosition < gameConfig.cols -1) {
-            gameState.currentPosition++;
-        }
-
     }
-        
 
-
+    if (isLetter(event.key) && gameState.currentPosition < gameConfig.cols) {
+        addLetterToBox(gameState.currentAttempt, gameState.currentPosition, event.key);
+        gameState.currentGuess += event.key;
+        gameState.currentPosition++;
+    }
 });

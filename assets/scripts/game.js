@@ -1,18 +1,16 @@
-
-
-function checkWordpostions(userGuess, Wordguess) {
-    Wordguess.split('').forEach((letter, index) => {
-        if (letter === userGuess[index]) {
-            console.log(`letter ${letter} is in the correct position`);
-            return `correct`;
-        }
-        else if (Wordguess.includes(letter)) {
-            console.log(`letter ${letter} is in the word, but not in the correct position`);
-            return `misplaced`;
-        }
-        else {
-            console.log(`letter ${letter} is not in the word`)
-            return `wrong`;
+function checkWordPositions(guess, word) {
+    const feedback = [];
+    guess.split('').forEach((letter, index) => {
+        if (letter === word[index]) {
+            console.log(`Letter ${letter} is in the correct position`);
+            feedback.push('correct');
+        } else if (word.includes(letter)) {
+            console.log(`Letter ${letter} is in the word, but not in the correct position`);
+            feedback.push('misplaced');
+        } else {
+            console.log(`Letter ${letter} is not in the word`);
+            feedback.push('wrong');
         }
     });
+    return feedback;
 }
