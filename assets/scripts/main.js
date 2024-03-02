@@ -51,7 +51,6 @@ async function getWord() {
     const response = await fetch('https://it3049c-hangman.fly.dev/api/word');
     const randomwords = await response.json();
     const word = randomwords.word;
-    console.log(word);
     return word;
 }
 
@@ -60,7 +59,6 @@ async function iswordValid(word) {
     const confirming = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`).
     then((confirming) => confirming.json());
     valid = Array.isArray(confirming) && confirming.length > 0;
-    console.log(valid);
     return valid;
 }
 
@@ -90,13 +88,11 @@ function updateAttemptGrid(){
 document.addEventListener('keydown', async (event) => {
     if (event.key === 'Enter') {
         if (gameState.currentAttempt === gameConfig.rows) {
-            console.log(`Try again! You have used all your attempts!`);
             updateAttemptGrid();
             return;
         }
 
         if (gameState.currentGuess.length !== gameConfig.cols) {
-            console.log('Guess a 5-letter word!');
             return;
         }
 
@@ -106,7 +102,6 @@ document.addEventListener('keydown', async (event) => {
         }
 
         if (await iswordValid(gameState.currentGuess)) {
-            console.log('Valid word!');
 
             const feedback = checkWordPositions(gameState.currentGuess, gameState.currentWord);
 
@@ -118,17 +113,15 @@ document.addEventListener('keydown', async (event) => {
             const correctLetters = feedback.filter(result => result === 'correct').length;
 
             if (correctLetters === gameConfig.cols) {
-                console.log('You guessed the word!');
                 alert(`You guessed the word! The word was ${gameState.currentWord}`);
                 updateAttemptGrid();
                 return;
             } else {
-                console.log('Try again!');
                 
             }
-           
+            
         } else {
-            console.log('Guess a valid word!');
+            return;
         }
 
         gameState.currentAttempt++;

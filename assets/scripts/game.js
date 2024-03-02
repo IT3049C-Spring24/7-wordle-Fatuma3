@@ -1,4 +1,4 @@
-function checkWordPositions(guess, word) {
+ function checkWordPositions(guess, word) {
     const feedback = [];
     guess.split('').forEach((letter, index) => {
         if (letter === word[index]) {

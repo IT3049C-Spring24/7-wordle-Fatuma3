@@ -6,7 +6,6 @@ function togglebutton() {
         const body = document.body;
         body.classList.toggle('light-mode');
         toggle.innerText = body.classList.contains('light-mode') ? '🌜' : '🌞';
-        console.log('Dark mode toggled');
 
     });
 }

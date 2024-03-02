@@ -63,8 +63,8 @@ header{
     --secoundary-color: rgb(249, 247, 243);  
     --color : rgb(249, 247, 243);      
     --correct-color: rgb(83, 141, 78);
-    --wrong-color: rgb(58, 58, 60);
-    --misplaced-color: rgb(181, 159, 59); 
+    --wrong-color: rgb(115, 6, 6);
+    --misplaced-color: rgb(178, 156, 13); 
     
 
 }
@@ -72,7 +72,7 @@ header{
     --primary-color: rgb(249, 247, 243);   
     --secoundary-color: rgb(31, 30, 29); 
     --color : rgb(31, 30, 29);       
-    --correct-color: rgb(83, 141, 78);
-    --wrong-color: rgb(237, 121, 111);
-    --misplaced-color: rgb(218, 235, 68);
+    --correct-color: rgb(139, 230, 131);
+    --wrong-color: rgb(252, 124, 124);
+    --misplaced-color: rgb(241, 243, 129);
 }

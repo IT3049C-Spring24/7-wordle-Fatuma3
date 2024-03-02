@@ -16,6 +16,7 @@ I should get **( )** out of 20 on this assignment.
 
 ## Self-Reflection:
 - **How long it took me to finish this?**
+It took me 
 
 - **What do you think of this completion time?**
 
