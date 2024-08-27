@@ -1,0 +1,78 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color:var(--primary-color);   
+    color: var(--color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+h1{
+    text-align: center;
+    margin-top: 50px;
+    color: var(--secoundary-color);
+}
+header{
+    border-bottom: 1px solid var(--secoundary-color);
+}
+
+#wordle-grid{
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.letter{
+    width: 60px;
+    height: 60px;
+    border:2px solid var(--secoundary-color);
+    text-transform: uppercase;
+    display: grid;
+    place-items: center ;
+    font-size: 2.4rem;    
+    color: var(--color);
+   
+
+}
+
+.letter.correct{
+    background-color: var(--correct-color);
+
+}
+
+.letter.wrong{
+    background-color:var(--wrong-color);
+    
+}   
+.letter.misplaced{
+    background-color: var(--misplaced-color);
+    
+}   
+#game {
+    display: grid;
+    height: 70vh;
+    place-items: center;
+        
+}
+
+
+:root{
+    --primary-color: rgb(31, 30, 29);   
+    --secoundary-color: rgb(249, 247, 243);  
+    --color : rgb(249, 247, 243);      
+    --correct-color: rgb(83, 141, 78);
+    --wrong-color: rgb(115, 6, 6);
+    --misplaced-color: rgb(178, 156, 13); 
+    
+
+}
+.light-mode{
+    --primary-color: rgb(249, 247, 243);   
+    --secoundary-color: rgb(31, 30, 29); 
+    --color : rgb(31, 30, 29);       
+    --correct-color: rgb(139, 230, 131);
+    --wrong-color: rgb(252, 124, 124);
+    --misplaced-color: rgb(241, 243, 129);
+}

@@ -3,9 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="/assets/styles/style.css">
+  <span id="mode-toggle" >🌜</span>
+  <title>Wordle</title>
+
 </head>
-<body>
-  
+
+<body class="light-mode">
+  <header>
+  <h1>Wordle</h1>
+  </header>
+  <div id="game">
+    <div id="wordle-grid">
+    </div>
+  </div>
 </body>
+
+<script src="assets/scripts/main.js" ></script>
+<script src="assets/scripts/game.js"></script>
+<script src="assets/scripts/dark-mode-toggle.js"></script>
+
+
 </html>
